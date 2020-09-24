@@ -25,6 +25,13 @@ namespace Testgram.Data.Repositories
                     .ToListAsync();
         }
 
+        public async Task<Likes> GetLikeByIdAsync(long postId, long userId)
+        {
+            return await SocialContext.Likes
+                    .Where(a => a.PostId == postId && a.UserId == userId)
+                    .SingleOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Likes>> GetLikesByPostIdAsync(long id)
         {
             return await SocialContext.Likes

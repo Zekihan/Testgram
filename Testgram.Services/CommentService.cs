@@ -47,6 +47,11 @@ namespace Testgram.Services
             return await _unitOfWork.Comment.GetCommentsByUserIdAsync(userId);
         }
 
+        public async Task<Comment> GetCommentById(long commentId)
+        {
+            return await _unitOfWork.Comment.GetByIdAsync(commentId);
+        }
+
         public async Task UpdateComment(Comment commentToBeUpdated, Comment comment)
         {
             commentToBeUpdated.Content = comment.Content;

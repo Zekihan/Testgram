@@ -9,6 +9,7 @@ namespace Testgram.Core.IServices
         Task<IEnumerable<Follow>> GetAllFollows();
         Task<IEnumerable<Follow>> GetFollowByUserId(long userId);
         Task<IEnumerable<Follow>> GetFollowByFollowerId(long followerId);
+        Task<Follow> GetFollowById(long userId, long followerId);
         Task<Follow> CreateFollow(Follow follow);
         Task DeleteFollow(Follow follow);
     }

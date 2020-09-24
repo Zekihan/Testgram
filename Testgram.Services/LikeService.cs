@@ -32,6 +32,11 @@ namespace Testgram.Services
             return await _unitOfWork.Like.GetAllLikesAsync();
         }
 
+        public async Task<Likes> GetLikeById(long postId, long userId)
+        {
+            return await _unitOfWork.Like.GetLikeByIdAsync(postId, userId);
+        }
+
         public async Task<IEnumerable<Likes>> GetLikesByPostId(long postId)
         {
             return await _unitOfWork.Like.GetLikesByPostIdAsync(postId);

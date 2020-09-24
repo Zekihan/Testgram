@@ -12,6 +12,7 @@ namespace Testgram.Api.ApiModels
         public string Content { get; set; }
         public long? ParentComment { get; set; }
         public long UserId { get; set; }
+        public string Username { get; set; }
         public long PostId { get; set; }
         public DateTime CommentDate { get; set; }
     }

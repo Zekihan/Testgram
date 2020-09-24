@@ -32,6 +32,13 @@ namespace Testgram.Data.Repositories
                     .ToListAsync();
         }
 
+        public async Task<Follow> GetFollowsByIdAsync(long userId, long followerId)
+        {
+            return await SocialContext.Follow
+                    .Where(a => a.UserId == userId && a.FollowerId == followerId)
+                    .SingleOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Follow>> GetFollowsByUserIdAsync(long id)
         {
             return await SocialContext.Follow

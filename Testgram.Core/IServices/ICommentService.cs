@@ -7,6 +7,7 @@ namespace Testgram.Core.IServices
     public interface ICommentService
     {
         Task<IEnumerable<Comment>> GetAllComments();
+        Task<Comment> GetCommentById(long commentId);
         Task<IEnumerable<Comment>> GetAllCommentsByPostId(long postId);
         Task<IEnumerable<Comment>> GetAllCommentsByUserId(long userId);
         Task<IEnumerable<Comment>> GetAllCommentsByParentComment(long commentId);
