@@ -37,7 +37,7 @@ namespace Testgram.Services
             return await _unitOfWork.Profile.GetProfileByEmailAsync(email);
         }
 
-        public async Task<Profile> GetProfileById(int id)
+        public async Task<Profile> GetProfileById(long id)
         {
             return await _unitOfWork.Profile.GetProfileByIdAsync(id);
         }

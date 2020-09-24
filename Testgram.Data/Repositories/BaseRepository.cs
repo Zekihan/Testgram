@@ -36,7 +36,7 @@ namespace Testgram.Data.Repositories
             return await Context.Set<TEntity>().ToListAsync();
         }
 
-        public ValueTask<TEntity> GetByIdAsync(int id)
+        public ValueTask<TEntity> GetByIdAsync(long id)
         {
             return Context.Set<TEntity>().FindAsync(id);
         }

@@ -9,7 +9,7 @@ namespace Testgram.Data.Configurations
         public void Configure(EntityTypeBuilder<Likes> entity)
         {
             entity.HasKey(e => new { e.UserId, e.PostId })
-                    .HasName("PK_LIKES");
+                                .HasName("PK_LIKES");
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
 

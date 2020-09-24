@@ -22,25 +22,24 @@ namespace Testgram.Data.Repositories
         public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
         {
             return await SocialContext.Comment
-                    .Include(a => a.CommentId)
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Comment>> GetCommentsByParentIdAsync(int id)
+        public async Task<IEnumerable<Comment>> GetCommentsByParentIdAsync(long id)
         {
             return await SocialContext.Comment
                     .Where(a => a.ParentComment == id)
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Comment>> GetCommentsByPostIdAsync(int id)
+        public async Task<IEnumerable<Comment>> GetCommentsByPostIdAsync(long id)
         {
             return await SocialContext.Comment
                     .Where(a => a.PostId == id)
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Comment>> GetCommentsByUserIdAsync(int id)
+        public async Task<IEnumerable<Comment>> GetCommentsByUserIdAsync(long id)
         {
             return await SocialContext.Comment
                     .Where(a => a.UserId == id)

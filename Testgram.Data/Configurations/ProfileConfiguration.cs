@@ -12,16 +12,14 @@ namespace Testgram.Data.Configurations
                     .HasName("PK_PROFILE");
 
             entity.HasIndex(e => e.Email)
-                .HasName("UQ__Profile__AB6E6164DBF924B2")
+                .HasName("UQ__Profile__AB6E61642272DBD6")
                 .IsUnique();
 
             entity.HasIndex(e => e.Username)
-                .HasName("UQ__Profile__F3DBC57221FDDDF4")
+                .HasName("UQ__Profile__F3DBC57207E43CE6")
                 .IsUnique();
 
-            entity.Property(e => e.UserId)
-                .HasColumnName("user_id")
-                .ValueGeneratedNever();
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.Property(e => e.Biografy)
                 .HasColumnName("biografy")

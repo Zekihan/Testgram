@@ -8,9 +8,7 @@ namespace Testgram.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Post> entity)
         {
-            entity.Property(e => e.PostId)
-                    .HasColumnName("post_id")
-                    .ValueGeneratedNever();
+            entity.Property(e => e.PostId).HasColumnName("post_id");
 
             entity.Property(e => e.Content)
                 .IsRequired()

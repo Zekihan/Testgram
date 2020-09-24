@@ -22,18 +22,17 @@ namespace Testgram.Data.Repositories
         public async Task<IEnumerable<Follow>> GetAllFollowsAsync()
         {
             return await SocialContext.Follow
-                    .Include(a => a.UserId)
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Follow>> GetFollowsByFollowerIdAsync(int id)
+        public async Task<IEnumerable<Follow>> GetFollowsByFollowerIdAsync(long id)
         {
             return await SocialContext.Follow
                     .Where(a => a.FollowerId == id)
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Follow>> GetFollowsByUserIdAsync(int id)
+        public async Task<IEnumerable<Follow>> GetFollowsByUserIdAsync(long id)
         {
             return await SocialContext.Follow
                     .Where(a => a.UserId == id)

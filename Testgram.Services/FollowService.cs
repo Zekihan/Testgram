@@ -32,12 +32,12 @@ namespace Testgram.Services
             return await _unitOfWork.Follow.GetAllFollowsAsync();
         }
 
-        public async Task<IEnumerable<Follow>> GetFollowByFollowerId(int followerId)
+        public async Task<IEnumerable<Follow>> GetFollowByFollowerId(long followerId)
         {
             return await _unitOfWork.Follow.GetFollowsByFollowerIdAsync(followerId);
         }
 
-        public async Task<IEnumerable<Follow>> GetFollowByUserId(int userId)
+        public async Task<IEnumerable<Follow>> GetFollowByUserId(long userId)
         {
             return await _unitOfWork.Follow.GetFollowsByUserIdAsync(userId);
         }

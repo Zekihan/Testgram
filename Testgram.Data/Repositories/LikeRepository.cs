@@ -22,18 +22,17 @@ namespace Testgram.Data.Repositories
         public async Task<IEnumerable<Likes>> GetAllLikesAsync()
         {
             return await SocialContext.Likes
-                    .Include(a => a.UserId)
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Likes>> GetLikesByPostIdAsync(int id)
+        public async Task<IEnumerable<Likes>> GetLikesByPostIdAsync(long id)
         {
             return await SocialContext.Likes
                     .Where(a => a.PostId == id)
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Likes>> GetLikesByUserIdAsync(int id)
+        public async Task<IEnumerable<Likes>> GetLikesByUserIdAsync(long id)
         {
             return await SocialContext.Likes
                     .Where(a => a.UserId == id)

@@ -7,8 +7,8 @@ namespace Testgram.Core.IServices
     public interface ILikeService
     {
         Task<IEnumerable<Likes>> GetAllLikes();
-        Task<IEnumerable<Likes>> GetLikesByUserId(int userId);
-        Task<IEnumerable<Likes>> GetLikesByPostId(int postId);
+        Task<IEnumerable<Likes>> GetLikesByUserId(long userId);
+        Task<IEnumerable<Likes>> GetLikesByPostId(long postId);
         Task<Likes> CreateLike(Likes like);
         Task DeleteLike(Likes like);
     }

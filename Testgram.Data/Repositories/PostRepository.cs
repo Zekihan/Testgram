@@ -23,11 +23,10 @@ namespace Testgram.Data.Repositories
         public async Task<IEnumerable<Post>> GetAllPostsAsync()
         {
             return await SocialContext.Post
-                    .Include(a => a.PostId)
                     .ToListAsync();
         }
 
-        public async Task<Post> GetPostByIdAsync(int id)
+        public async Task<Post> GetPostByIdAsync(long id)
         {
             return await SocialContext.Post
                  .SingleOrDefaultAsync(a => a.PostId == id);
@@ -40,7 +39,7 @@ namespace Testgram.Data.Repositories
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<Post>> GetPostsByUserIdAsync(int userId)
+        public async Task<IEnumerable<Post>> GetPostsByUserIdAsync(long userId)
         {
             return await SocialContext.Post
                     .Where(a => a.UserId == userId)

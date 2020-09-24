@@ -17,6 +17,7 @@ namespace Testgram.Services
 
         public async Task<Post> CreatePost(Post post)
         {
+            Console.WriteLine(post.PostId);
             await _unitOfWork.Post.AddAsync(post);
             await _unitOfWork.CommitAsync();
             return post;
@@ -38,9 +39,13 @@ namespace Testgram.Services
             return await _unitOfWork.Post.GetPostsAfterDateAsync(dateTime);
         }
 
-        public async Task<Post> GetPostById(int id)
+        public async Task<Post> GetPostById(long id)
         {
             return await _unitOfWork.Post.GetPostByIdAsync(id);
+        }
+        public async Task<IEnumerable<Post>> GetPostsByUserId(long userId)
+        {
+            return await _unitOfWork.Post.GetPostsByUserIdAsync(userId);
         }
 
         public async Task UpdatePost(Post postToBeUpdated, Post post)

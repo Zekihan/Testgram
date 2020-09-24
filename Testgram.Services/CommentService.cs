@@ -32,17 +32,17 @@ namespace Testgram.Services
             return await _unitOfWork.Comment.GetAllCommentsAsync();
         }
 
-        public async Task<IEnumerable<Comment>> GetAllCommentsByParentComment(int commentId)
+        public async Task<IEnumerable<Comment>> GetAllCommentsByParentComment(long commentId)
         {
             return await _unitOfWork.Comment.GetCommentsByParentIdAsync(commentId);
         }
 
-        public async Task<IEnumerable<Comment>> GetAllCommentsByPostId(int postId)
+        public async Task<IEnumerable<Comment>> GetAllCommentsByPostId(long postId)
         {
             return await _unitOfWork.Comment.GetCommentsByPostIdAsync(postId);
         }
 
-        public async Task<IEnumerable<Comment>> GetAllCommentsByUserId(int userId)
+        public async Task<IEnumerable<Comment>> GetAllCommentsByUserId(long userId)
         {
             return await _unitOfWork.Comment.GetCommentsByUserIdAsync(userId);
         }

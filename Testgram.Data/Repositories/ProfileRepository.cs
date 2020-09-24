@@ -16,7 +16,6 @@ namespace Testgram.Data.Repositories
         public async Task<IEnumerable<Profile>> GetAllProfilesAsync()
         {
             return await SocialContext.Profile
-                .Include(a => a.UserId)
                 .ToListAsync();
         }
 
@@ -26,7 +25,7 @@ namespace Testgram.Data.Repositories
                  .SingleOrDefaultAsync(a => a.Email == email);
         }
 
-        public async Task<Profile> GetProfileByIdAsync(int id)
+        public async Task<Profile> GetProfileByIdAsync(long id)
         {
             return await SocialContext.Profile
                  .SingleOrDefaultAsync(a => a.UserId == id);

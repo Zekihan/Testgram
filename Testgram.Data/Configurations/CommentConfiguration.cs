@@ -8,9 +8,7 @@ namespace Testgram.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Comment> entity)
         {
-            entity.Property(e => e.CommentId)
-                                .HasColumnName("comment_id")
-                                .ValueGeneratedNever();
+            entity.Property(e => e.CommentId).HasColumnName("comment_id");
 
             entity.Property(e => e.CommentDate)
                 .HasColumnName("comment_date")
