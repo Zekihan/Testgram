@@ -16,12 +16,14 @@ namespace Testgram.Api.Controllers
         private readonly ICommentService _commentService;
         private readonly IProfileService _profileService;
         private readonly AutoMapper.IMapper _mapper;
+
         public CommentController(ICommentService commentService, AutoMapper.IMapper mapper, IProfileService profileService)
         {
             this._mapper = mapper;
             this._commentService = commentService;
             this._profileService = profileService;
         }
+
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<CommentModel>>> GetAllComments()
         {
@@ -77,6 +79,7 @@ namespace Testgram.Api.Controllers
             }
             return Ok(commentsModel);
         }
+
         [HttpGet("parentId")]
         public async Task<ActionResult<IEnumerable<CommentModel>>> GetAllCommentsByParentComment(long parentId)
         {
@@ -89,6 +92,7 @@ namespace Testgram.Api.Controllers
             }
             return Ok(commentsModel);
         }
+
         [HttpPost]
         public async Task<ActionResult<CommentModel>> CreateComment(CommentModel newComment)
         {
@@ -111,6 +115,7 @@ namespace Testgram.Api.Controllers
                 return BadRequest("Unknown Error"); //couldn’t handle that error
             }
         }
+
         [HttpDelete("commentId")]
         public async Task<ActionResult<CommentModel>> DeleteLike(long commentId)
         {
@@ -137,6 +142,7 @@ namespace Testgram.Api.Controllers
                 return BadRequest("Unknown Error"); //couldn’t handle that error
             }
         }
+
         [HttpPut("id")]
         public async Task<ActionResult<CommentModel>> UpdateProfile(int id, CommentModel newComment)
         {

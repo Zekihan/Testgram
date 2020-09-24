@@ -15,6 +15,7 @@ namespace Testgram.Api.Controllers
     {
         private readonly IProfileService _profileService;
         private readonly AutoMapper.IMapper _mapper;
+
         public ProfileController(IProfileService profileService, AutoMapper.IMapper mapper)
         {
             this._mapper = mapper;
@@ -115,6 +116,5 @@ namespace Testgram.Api.Controllers
                 return BadRequest("Unknown Error"); //couldn’t handle that error
             }
         }
-
     }
 }

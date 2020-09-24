@@ -16,6 +16,7 @@ namespace Testgram.Data.Repositories
         {
             this.Context = context;
         }
+
         public async Task AddAsync(TEntity entity)
         {
             await Context.Set<TEntity>().AddAsync(entity);

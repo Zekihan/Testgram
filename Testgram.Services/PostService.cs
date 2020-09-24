@@ -10,6 +10,7 @@ namespace Testgram.Services
     public class PostService : IPostService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public PostService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
@@ -43,6 +44,7 @@ namespace Testgram.Services
         {
             return await _unitOfWork.Post.GetPostByIdAsync(id);
         }
+
         public async Task<IEnumerable<Post>> GetPostsByUserId(long userId)
         {
             return await _unitOfWork.Post.GetPostsByUserIdAsync(userId);

@@ -8,7 +8,7 @@ using Testgram.Data.Configurations;
 
 namespace Testgram.Data.Repositories
 {
-    class LikeRepository : BaseRepository<Likes>, ILikeRepository
+    internal class LikeRepository : BaseRepository<Likes>, ILikeRepository
     {
         public LikeRepository(SocialContext context)
             : base(context)

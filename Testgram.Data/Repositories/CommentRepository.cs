@@ -8,7 +8,7 @@ using Testgram.Data.Configurations;
 
 namespace Testgram.Data.Repositories
 {
-    class CommentRepository : BaseRepository<Comment>, ICommentRepository
+    internal class CommentRepository : BaseRepository<Comment>, ICommentRepository
     {
         public CommentRepository(SocialContext context)
             : base(context)

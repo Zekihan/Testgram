@@ -9,6 +9,7 @@ namespace Testgram.Services
     public class FollowService : IFollowService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public FollowService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;

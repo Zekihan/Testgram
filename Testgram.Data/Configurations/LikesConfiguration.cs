@@ -4,7 +4,7 @@ using Testgram.Core.Models;
 
 namespace Testgram.Data.Configurations
 {
-    class LikeConfiguration : IEntityTypeConfiguration<Likes>
+    internal class LikeConfiguration : IEntityTypeConfiguration<Likes>
     {
         public void Configure(EntityTypeBuilder<Likes> entity)
         {

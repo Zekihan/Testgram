@@ -7,7 +7,7 @@ using Testgram.Data.Configurations;
 
 namespace Testgram.Data.Repositories
 {
-    class ProfileRepository : BaseRepository<Profile>, IProfileRepository
+    internal class ProfileRepository : BaseRepository<Profile>, IProfileRepository
     {
         public ProfileRepository(SocialContext context)
             : base(context)

@@ -4,7 +4,6 @@
     {
         public ProfileModel()
         {
-
         }
 
         public long UserId { get; set; }

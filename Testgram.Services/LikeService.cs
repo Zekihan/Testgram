@@ -9,6 +9,7 @@ namespace Testgram.Services
     public class LikeService : ILikeService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public LikeService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;

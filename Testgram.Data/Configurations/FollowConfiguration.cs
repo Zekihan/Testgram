@@ -4,7 +4,7 @@ using Testgram.Core.Models;
 
 namespace Testgram.Data.Configurations
 {
-    class FollowConfiguration : IEntityTypeConfiguration<Follow>
+    internal class FollowConfiguration : IEntityTypeConfiguration<Follow>
     {
         public void Configure(EntityTypeBuilder<Follow> entity)
         {

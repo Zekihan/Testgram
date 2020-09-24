@@ -16,12 +16,14 @@ namespace Testgram.Api.Controllers
         private readonly IPostService _postService;
         private readonly IProfileService _profileService;
         private readonly AutoMapper.IMapper _mapper;
+
         public PostController(IPostService postService, AutoMapper.IMapper mapper, IProfileService profileService)
         {
             this._mapper = mapper;
             this._postService = postService;
             this._profileService = profileService;
         }
+
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<PostModel>>> GetAllPosts()
         {
@@ -34,6 +36,7 @@ namespace Testgram.Api.Controllers
             }
             return Ok(postsModel);
         }
+
         [HttpGet("username")]
         public async Task<ActionResult<PostModel>> GetPostsByUsername(string username)
         {
@@ -118,6 +121,7 @@ namespace Testgram.Api.Controllers
                 return BadRequest("Unknown Error"); //couldn’t handle that error
             }
         }
+
         [HttpDelete("id")]
         public async Task<ActionResult<ProfileModel>> DeletePost(int id)
         {

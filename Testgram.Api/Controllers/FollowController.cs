@@ -16,12 +16,14 @@ namespace Testgram.Api.Controllers
         private readonly IFollowService _followService;
         private readonly IProfileService _profileService;
         private readonly AutoMapper.IMapper _mapper;
+
         public FollowController(IFollowService followService, AutoMapper.IMapper mapper, IProfileService profileService)
         {
             this._mapper = mapper;
             this._followService = followService;
             this._profileService = profileService;
         }
+
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<FollowModel>>> GetAllFollows()
         {
@@ -36,6 +38,7 @@ namespace Testgram.Api.Controllers
             }
             return Ok(followsModel);
         }
+
         [HttpGet("follower/{username}")]
         public async Task<ActionResult<IEnumerable<FollowModel>>> GetAllFollowerByUsername(string username)
         {
@@ -55,6 +58,7 @@ namespace Testgram.Api.Controllers
             }
             return Ok(followsModel);
         }
+
         [HttpGet("followed/{username}")]
         public async Task<ActionResult<IEnumerable<FollowModel>>> GetAllFollowedByUsername(string username)
         {
@@ -97,6 +101,7 @@ namespace Testgram.Api.Controllers
                 return BadRequest("Unknown Error"); //couldn’t handle that error
             }
         }
+
         [HttpDelete("{userId}/{followerId}")]
         public async Task<ActionResult<FollowModel>> DeleteFollow(long userId, long followerId)
         {

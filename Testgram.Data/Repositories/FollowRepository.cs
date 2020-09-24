@@ -8,7 +8,7 @@ using Testgram.Data.Configurations;
 
 namespace Testgram.Data.Repositories
 {
-    class FollowRepository : BaseRepository<Follow>, IFollowRepository
+    internal class FollowRepository : BaseRepository<Follow>, IFollowRepository
     {
         public FollowRepository(SocialContext context)
             : base(context)

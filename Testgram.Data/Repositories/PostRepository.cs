@@ -9,7 +9,7 @@ using Testgram.Data.Configurations;
 
 namespace Testgram.Data.Repositories
 {
-    class PostRepository : BaseRepository<Post>, IPostRepository
+    internal class PostRepository : BaseRepository<Post>, IPostRepository
     {
         public PostRepository(SocialContext context)
             : base(context)

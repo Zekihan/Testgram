@@ -16,12 +16,14 @@ namespace Testgram.Api.Controllers
         private readonly ILikeService _likeService;
         private readonly IProfileService _profileService;
         private readonly AutoMapper.IMapper _mapper;
+
         public LikeController(ILikeService likeService, AutoMapper.IMapper mapper, IProfileService profileService)
         {
             this._mapper = mapper;
             this._likeService = likeService;
             this._profileService = profileService;
         }
+
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<LikesModel>>> GetAllLikes()
         {
@@ -34,6 +36,7 @@ namespace Testgram.Api.Controllers
             }
             return Ok(likesModel);
         }
+
         [HttpGet("username")]
         public async Task<ActionResult<IEnumerable<LikesModel>>> GetAllLikeByUsername(string username)
         {
@@ -51,6 +54,7 @@ namespace Testgram.Api.Controllers
             }
             return Ok(likesModel);
         }
+
         [HttpGet("postId")]
         public async Task<ActionResult<IEnumerable<LikesModel>>> GetAllLikeByPostId(long postId)
         {
@@ -86,6 +90,7 @@ namespace Testgram.Api.Controllers
                 return BadRequest("Unknown Error"); //couldn’t handle that error
             }
         }
+
         [HttpDelete("{postId}/{userId}")]
         public async Task<ActionResult<LikesModel>> DeleteLike(long postId, long userId)
         {

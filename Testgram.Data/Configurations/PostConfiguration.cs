@@ -4,7 +4,7 @@ using Testgram.Core.Models;
 
 namespace Testgram.Data.Configurations
 {
-    class PostConfigurations : IEntityTypeConfiguration<Post>
+    internal class PostConfigurations : IEntityTypeConfiguration<Post>
     {
         public void Configure(EntityTypeBuilder<Post> entity)
         {

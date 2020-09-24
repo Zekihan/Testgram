@@ -11,6 +11,7 @@ namespace Testgram.Core
         ILikeRepository Like { get; }
         IFollowRepository Follow { get; }
         ICommentRepository Comment { get; }
+
         Task<int> CommitAsync();
     }
 }

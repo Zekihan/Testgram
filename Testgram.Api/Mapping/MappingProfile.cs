@@ -20,7 +20,6 @@ namespace Testgram.Api.Mapping
             CreateMap<LikesModel, Core.Models.Likes>();
             CreateMap<FollowModel, Core.Models.Follow>();
             CreateMap<CommentModel, Core.Models.Comment>();
-
         }
     }
 }

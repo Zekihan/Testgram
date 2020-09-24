@@ -9,6 +9,7 @@ namespace Testgram.Services
     public class ProfileService : IProfileService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public ProfileService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;

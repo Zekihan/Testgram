@@ -9,6 +9,7 @@ namespace Testgram.Services
     public class CommentService : ICommentService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public CommentService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;

@@ -4,7 +4,7 @@ using Testgram.Core.Models;
 
 namespace Testgram.Data.Configurations
 {
-    class ProfileConfigurations : IEntityTypeConfiguration<Profile>
+    internal class ProfileConfigurations : IEntityTypeConfiguration<Profile>
     {
         public void Configure(EntityTypeBuilder<Profile> entity)
         {

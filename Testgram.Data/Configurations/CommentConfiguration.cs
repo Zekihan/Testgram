@@ -4,7 +4,7 @@ using Testgram.Core.Models;
 
 namespace Testgram.Data.Configurations
 {
-    class CommentConfiguration : IEntityTypeConfiguration<Comment>
+    internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
     {
         public void Configure(EntityTypeBuilder<Comment> entity)
         {
