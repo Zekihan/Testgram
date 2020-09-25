@@ -84,10 +84,20 @@ namespace Testgram.Api.Controllers
                 //This either returns a error string, or null if it can’t handle that error
                 if (e != null)
                 {
-                    Console.WriteLine(e.StackTrace);
-                    return BadRequest("Error: Unhandled Error\nMessage: " + e.Message + "\nInner message: " + e.InnerException.Message);
+                    if (e.InnerException.Message.Contains("Likes_fk0"))
+                    {
+                        return BadRequest("Error: UserId doesnt exists.");
+                    }
+                    else if (e.InnerException.Message.Contains("Likes_fk1"))
+                    {
+                        return BadRequest("Error: PostId doesnt exists.");
+                    }
+                    else
+                    {
+                        return BadRequest("Error: Unhandled Error\nMessage: " + e.Message + "\nInner message: " + e.InnerException.Message);
+                    }
                 }
-                return BadRequest("Unknown Error"); //couldn’t handle that error
+                return BadRequest("Unknown Error" + ":" + e.Message + e.InnerException.Message); //couldn’t handle that error
             }
         }
 
@@ -111,10 +121,9 @@ namespace Testgram.Api.Controllers
                 //This either returns a error string, or null if it can’t handle that error
                 if (e != null)
                 {
-                    Console.WriteLine(e.StackTrace);
                     return BadRequest("Error: Unhandled Error\nMessage: " + e.Message + "\nInner message: " + e.InnerException.Message);
                 }
-                return BadRequest("Unknown Error"); //couldn’t handle that error
+                return BadRequest("Unknown Error" + ":" + e.Message + e.InnerException.Message); //couldn’t handle that error
             }
         }
     }

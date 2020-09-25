@@ -18,7 +18,6 @@ namespace Testgram.Services
 
         public async Task<Post> CreatePost(Post post)
         {
-            Console.WriteLine(post.PostId);
             await _unitOfWork.Post.AddAsync(post);
             await _unitOfWork.CommitAsync();
             return post;

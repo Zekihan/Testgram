@@ -45,19 +45,39 @@ namespace Testgram.Api.Controllers
         [HttpPut("id")]
         public async Task<ActionResult<ProfileModel>> UpdateProfile(int id, ProfileModel newProfile)
         {
-            var profileToUpdate = await _profileService.GetProfileById(id);
+            try
+            {
+                var profileToUpdate = await _profileService.GetProfileById(id);
 
-            if (profileToUpdate == null)
-                return NotFound();
+                if (profileToUpdate == null)
+                    return NotFound();
 
-            var profile = _mapper.Map<ProfileModel, Profile>(newProfile);
+                var profile = _mapper.Map<ProfileModel, Profile>(newProfile);
 
-            await _profileService.UpdateProfile(profileToUpdate, profile);
+                await _profileService.UpdateProfile(profileToUpdate, profile);
 
-            profile = await _profileService.GetProfileById(id);
-            newProfile = _mapper.Map<Profile, ProfileModel>(profile);
+                profile = await _profileService.GetProfileById(id);
+                newProfile = _mapper.Map<Profile, ProfileModel>(profile);
 
-            return Ok(newProfile);
+                return Ok(newProfile);
+            }
+            catch (DbUpdateException e)
+            {
+                //This either returns a error string, or null if it can’t handle that error
+                if (e != null)
+                {
+                    if (e.InnerException.Message.Contains("UQ__Profile__AB6E61642272DBD6"))
+                    {
+                        return BadRequest("Email is already used");
+                    }
+                    else if (e.InnerException.Message.Contains("UQ__Profile__F3DBC57207E43CE6"))
+                    {
+                        return BadRequest("Username is already used");
+                    }
+                    else return BadRequest("Error: Unhandled Error\nMessage: " + e.Message + "\nInner message: " + e.InnerException.Message);
+                }
+                return BadRequest("Unknown Error"); //couldn’t handle that error
+            }
         }
 
         [HttpPost]
@@ -66,7 +86,6 @@ namespace Testgram.Api.Controllers
             try
             {
                 var profile = _mapper.Map<ProfileModel, Profile>(newProfile);
-                Console.WriteLine(profile);
                 var profileModel = await _profileService.CreateProfile(profile);
 
                 newProfile = _mapper.Map<Profile, ProfileModel>(profileModel);
