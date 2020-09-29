@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -99,7 +98,7 @@ namespace Testgram.Api.Controllers
         {
             try
             {
-                if(newComment.ParentComment == 0)
+                if (newComment.ParentComment == 0)
                 {
                     newComment.ParentComment = null;
                 }
