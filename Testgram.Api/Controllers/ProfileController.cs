@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Testgram.Api.ApiModels;
+using Testgram.Core.Exceptions;
 using Testgram.Core.IServices;
 using Testgram.Core.Models;
 
@@ -61,22 +62,13 @@ namespace Testgram.Api.Controllers
 
                 return Ok(newProfile);
             }
-            catch (DbUpdateException e)
+            catch (DBException e)
             {
-                //This either returns a error string, or null if it can’t handle that error
-                if (e != null)
-                {
-                    if (e.InnerException.Message.Contains("UQ__Profile__AB6E61642272DBD6"))
-                    {
-                        return BadRequest("Email is already used");
-                    }
-                    else if (e.InnerException.Message.Contains("UQ__Profile__F3DBC57207E43CE6"))
-                    {
-                        return BadRequest("Username is already used");
-                    }
-                    else return BadRequest("Error: Unhandled Error\nMessage: " + e.Message + "\nInner message: " + e.InnerException.Message);
-                }
-                return BadRequest("Unknown Error"); //couldn’t handle that error
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Internal error.");
             }
         }
 
@@ -91,22 +83,13 @@ namespace Testgram.Api.Controllers
                 newProfile = _mapper.Map<Profile, ProfileModel>(profileModel);
                 return Ok(newProfile);
             }
-            catch (DbUpdateException e)
+            catch (DBException e)
             {
-                //This either returns a error string, or null if it can’t handle that error
-                if (e != null)
-                {
-                    if (e.InnerException.Message.Contains("UQ__Profile__AB6E61642272DBD6"))
-                    {
-                        return BadRequest("Email is already used");
-                    }
-                    else if (e.InnerException.Message.Contains("UQ__Profile__F3DBC57207E43CE6"))
-                    {
-                        return BadRequest("Username is already used");
-                    }
-                    else return BadRequest("Error: Unhandled Error\nMessage: " + e.Message + "\nInner message: " + e.InnerException.Message);
-                }
-                return BadRequest("Unknown Error"); //couldn’t handle that error
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Internal error.");
             }
         }
 
@@ -125,14 +108,13 @@ namespace Testgram.Api.Controllers
                 await _profileService.DeleteProfile(profileToBeDeleted);
                 return Ok(profileModel);
             }
-            catch (DbUpdateException e)
+            catch (DBException e)
             {
-                //This either returns a error string, or null if it can’t handle that error
-                if (e != null)
-                {
-                    return BadRequest("Error: Unhandled Error\nMessage: " + e.Message + "\nInner message: " + e.InnerException.Message);
-                }
-                return BadRequest("Unknown Error"); //couldn’t handle that error
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Internal error.");
             }
         }
     }

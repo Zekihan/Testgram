@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Testgram.Core;
+using Testgram.Core.Exceptions;
 using Testgram.Core.IServices;
 using Testgram.Core.Models;
 
@@ -17,15 +19,58 @@ namespace Testgram.Services
 
         public async Task<Profile> CreateProfile(Profile profile)
         {
-            await _unitOfWork.Profile.AddAsync(profile);
-            await _unitOfWork.CommitAsync();
-            return profile;
+            try
+            {
+                await _unitOfWork.Profile.AddAsync(profile);
+                await _unitOfWork.CommitAsync();
+                return profile;
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task DeleteProfile(Profile profile)
         {
-            _unitOfWork.Profile.Remove(profile);
-            await _unitOfWork.CommitAsync();
+            try
+            {
+                _unitOfWork.Profile.Remove(profile);
+                await _unitOfWork.CommitAsync();
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
+        }
+
+        public async Task UpdateProfile(Profile profileToBeUpdated, Profile profile)
+        {
+            try
+            {
+                profileToBeUpdated.Biografy = profile.Biografy;
+                profileToBeUpdated.Username = profile.Username;
+                profileToBeUpdated.Email = profile.Email;
+                profileToBeUpdated.FirstName = profile.FirstName;
+                profileToBeUpdated.LastName = profile.LastName;
+                await _unitOfWork.CommitAsync();
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task<IEnumerable<Profile>> GetAllProfiles()
@@ -46,16 +91,6 @@ namespace Testgram.Services
         public async Task<Profile> GetProfileByUsername(string username)
         {
             return await _unitOfWork.Profile.GetProfileByUsernameAsync(username);
-        }
-
-        public async Task UpdateProfile(Profile profileToBeUpdated, Profile profile)
-        {
-            profileToBeUpdated.Biografy = profile.Biografy;
-            profileToBeUpdated.Username = profile.Username;
-            profileToBeUpdated.Email = profile.Email;
-            profileToBeUpdated.FirstName = profile.FirstName;
-            profileToBeUpdated.LastName = profile.LastName;
-            await _unitOfWork.CommitAsync();
         }
     }
 }

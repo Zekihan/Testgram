@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Testgram.Core;
+using Testgram.Core.Exceptions;
 using Testgram.Core.IServices;
 using Testgram.Core.Models;
 
@@ -18,15 +19,53 @@ namespace Testgram.Services
 
         public async Task<Post> CreatePost(Post post)
         {
-            await _unitOfWork.Post.AddAsync(post);
-            await _unitOfWork.CommitAsync();
-            return post;
+            try
+            {
+                await _unitOfWork.Post.AddAsync(post);
+                await _unitOfWork.CommitAsync();
+                return post;
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task DeletePost(Post post)
         {
-            _unitOfWork.Post.Remove(post);
-            await _unitOfWork.CommitAsync();
+            try
+            {
+                _unitOfWork.Post.Remove(post);
+                await _unitOfWork.CommitAsync();
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
+        }
+        public async Task UpdatePost(Post postToBeUpdated, Post post)
+        {
+            try
+            {
+                postToBeUpdated.Content = post.Content;
+                await _unitOfWork.CommitAsync();
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task<IEnumerable<Post>> GetAllPosts()
@@ -49,10 +88,5 @@ namespace Testgram.Services
             return await _unitOfWork.Post.GetPostsByUserIdAsync(userId);
         }
 
-        public async Task UpdatePost(Post postToBeUpdated, Post post)
-        {
-            postToBeUpdated.Content = post.Content;
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

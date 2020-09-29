@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Testgram.Core;
+using Testgram.Core.Exceptions;
 using Testgram.Core.IServices;
 using Testgram.Core.Models;
 
@@ -17,15 +19,53 @@ namespace Testgram.Services
 
         public async Task<Comment> CreateComment(Comment comment)
         {
-            await _unitOfWork.Comment.AddAsync(comment);
-            await _unitOfWork.CommitAsync();
-            return comment;
+            try
+            {
+                await _unitOfWork.Comment.AddAsync(comment);
+                await _unitOfWork.CommitAsync();
+                return comment;
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task DeleteComment(Comment comment)
         {
-            _unitOfWork.Comment.Remove(comment);
-            await _unitOfWork.CommitAsync();
+            try
+            {
+                _unitOfWork.Comment.Remove(comment);
+                await _unitOfWork.CommitAsync();
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
+        }
+        public async Task UpdateComment(Comment commentToBeUpdated, Comment comment)
+        {
+            try
+            {
+                commentToBeUpdated.Content = comment.Content;
+                await _unitOfWork.CommitAsync();
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task<IEnumerable<Comment>> GetAllComments()
@@ -53,10 +93,5 @@ namespace Testgram.Services
             return await _unitOfWork.Comment.GetByIdAsync(commentId);
         }
 
-        public async Task UpdateComment(Comment commentToBeUpdated, Comment comment)
-        {
-            commentToBeUpdated.Content = comment.Content;
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

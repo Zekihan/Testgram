@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Testgram.Core;
+using Testgram.Core.Exceptions;
 using Testgram.Core.IServices;
 using Testgram.Core.Models;
 
@@ -17,15 +19,37 @@ namespace Testgram.Services
 
         public async Task<Follow> CreateFollow(Follow follow)
         {
-            await _unitOfWork.Follow.AddAsync(follow);
-            await _unitOfWork.CommitAsync();
-            return follow;
+            try
+            {
+                await _unitOfWork.Follow.AddAsync(follow);
+                await _unitOfWork.CommitAsync();
+                return follow;
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task DeleteFollow(Follow follow)
         {
-            _unitOfWork.Follow.Remove(follow);
-            await _unitOfWork.CommitAsync();
+            try
+            {
+                _unitOfWork.Follow.Remove(follow);
+                await _unitOfWork.CommitAsync();
+            }
+            catch (DBException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Internal error.");
+            }
         }
 
         public async Task<IEnumerable<Follow>> GetAllFollows()
