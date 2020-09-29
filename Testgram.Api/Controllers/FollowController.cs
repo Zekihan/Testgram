@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Testgram.Api.ApiModels;
+using Testgram.Api.InputModels;
 using Testgram.Core.Exceptions;
 using Testgram.Core.IServices;
 using Testgram.Core.Models;
@@ -81,15 +82,23 @@ namespace Testgram.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<FollowModel>> CreateFollow(FollowModel newFollow)
+        public async Task<ActionResult<FollowModel>> CreateFollow(FollowInputModel newFollow)
         {
             try
             {
-                var follow = _mapper.Map<FollowModel, Follow>(newFollow);
+                var follow = _mapper.Map<FollowInputModel, Follow>(newFollow);
+                follow.FollowDate = DateTime.UtcNow;
                 var followModel = await _followService.CreateFollow(follow);
 
-                newFollow = _mapper.Map<Follow, FollowModel>(followModel);
-                return Ok(newFollow);
+                var followOutput = _mapper.Map<Follow, FollowModel>(followModel);
+
+                var profile = await _profileService.GetProfileById(newFollow.UserId);
+                followOutput.Username = profile.Username;
+
+                profile = await _profileService.GetProfileById(newFollow.FollowerId);
+                followOutput.FollowerUsername = profile.Username;
+
+                return Ok(followOutput);
             }
             catch (DBException e)
             {
@@ -112,6 +121,12 @@ namespace Testgram.Api.Controllers
                     return NotFound();
 
                 var postModel = _mapper.Map<Follow, FollowModel>(followToBeDeleted);
+
+                var profile = await _profileService.GetProfileById(postModel.UserId);
+                postModel.Username = profile.Username;
+
+                profile = await _profileService.GetProfileById(postModel.FollowerId);
+                postModel.FollowerUsername = profile.Username;
 
                 await _followService.DeleteFollow(followToBeDeleted);
                 return Ok(postModel);

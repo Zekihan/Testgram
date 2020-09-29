@@ -70,15 +70,20 @@ namespace Testgram.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<LikesModel>> CreateLike(LikesModel newLike)
+        public async Task<ActionResult<LikesModel>> CreateLike(LikesInputModel newLike)
         {
             try
             {
-                var like = _mapper.Map<LikesModel, Likes>(newLike);
+                var like = _mapper.Map<LikesInputModel, Likes>(newLike);
+                like.LikeDate = DateTime.UtcNow;
                 var likeModel = await _likeService.CreateLike(like);
 
-                newLike = _mapper.Map<Likes, LikesModel>(likeModel);
-                return Ok(newLike);
+                var likeOutput = _mapper.Map<Likes, LikesModel>(likeModel);
+
+                var profile = await _profileService.GetProfileById(likeOutput.UserId);
+                likeOutput.Username = profile.Username;
+
+                return Ok(likeOutput);
             }
             catch (DBException e)
             {
@@ -100,10 +105,13 @@ namespace Testgram.Api.Controllers
                 if (likeToBeDeleted == null)
                     return NotFound();
 
-                var postModel = _mapper.Map<Likes, LikesModel>(likeToBeDeleted);
+                var likeOutput = _mapper.Map<Likes, LikesModel>(likeToBeDeleted);
+
+                var profile = await _profileService.GetProfileById(likeOutput.UserId);
+                likeOutput.Username = profile.Username;
 
                 await _likeService.DeleteLike(likeToBeDeleted);
-                return Ok(postModel);
+                return Ok(likeOutput);
             }
             catch (DBException e)
             {

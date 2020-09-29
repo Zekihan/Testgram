@@ -80,6 +80,14 @@ namespace Testgram.Data
                 {
                     throw new DBException("This username is already in use.");
                 }
+                else if (e.InnerException.Message.Contains("PK_FOLLOW"))
+                {
+                    throw new FollowExistsException();
+                }
+                else if (e.InnerException.Message.Contains("PK_LIKES"))
+                {
+                    throw new LikeExistsException();
+                }
             }
             throw new ArgumentException("Internal error.");
         }

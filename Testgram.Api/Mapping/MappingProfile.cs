@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Testgram.Api.ApiModels;
+using Testgram.Api.InputModels;
 
 namespace Testgram.Api.Mapping
 {
@@ -20,6 +21,13 @@ namespace Testgram.Api.Mapping
             CreateMap<LikesModel, Core.Models.Likes>();
             CreateMap<FollowModel, Core.Models.Follow>();
             CreateMap<CommentModel, Core.Models.Comment>();
+
+            CreateMap<Core.Models.Follow, FollowInputModel>();
+            CreateMap<FollowInputModel, Core.Models.Follow>();
+
+            CreateMap<Core.Models.Likes, LikesInputModel>();
+            CreateMap<LikesInputModel, Core.Models.Likes>();
+
         }
     }
 }
