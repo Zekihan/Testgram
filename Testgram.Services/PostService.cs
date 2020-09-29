@@ -51,6 +51,7 @@ namespace Testgram.Services
                 throw new ArgumentException("Internal error.");
             }
         }
+
         public async Task UpdatePost(Post postToBeUpdated, Post post)
         {
             try
@@ -87,6 +88,5 @@ namespace Testgram.Services
         {
             return await _unitOfWork.Post.GetPostsByUserIdAsync(userId);
         }
-
     }
 }

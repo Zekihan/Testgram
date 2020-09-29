@@ -27,7 +27,6 @@ namespace Testgram.Api.Mapping
 
             CreateMap<Core.Models.Likes, LikesInputModel>();
             CreateMap<LikesInputModel, Core.Models.Likes>();
-
         }
     }
 }

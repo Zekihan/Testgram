@@ -51,6 +51,7 @@ namespace Testgram.Services
                 throw new ArgumentException("Internal error.");
             }
         }
+
         public async Task UpdateComment(Comment commentToBeUpdated, Comment comment)
         {
             try
@@ -92,6 +93,5 @@ namespace Testgram.Services
         {
             return await _unitOfWork.Comment.GetByIdAsync(commentId);
         }
-
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Testgram.Core.Exceptions
+﻿namespace Testgram.Core.Exceptions
 {
     public class FollowExistsException : DBException
     {
-        public FollowExistsException() : base("This follow already exists.") { }
+        public FollowExistsException() : base("This follow already exists.")
+        {
+        }
     }
 }

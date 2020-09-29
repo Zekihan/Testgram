@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Testgram.Api.ApiModels
+﻿namespace Testgram.Api.ApiModels
 {
     public partial class LikesInputModel
     {

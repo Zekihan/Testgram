@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Testgram.Api.InputModels
+﻿namespace Testgram.Api.InputModels
 {
     public partial class FollowInputModel
     {
